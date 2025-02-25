@@ -12,7 +12,7 @@ class ScreenNameWidget extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return SizerUtil.deviceType == DeviceType.mobile
+    return Device.screenType == ScreenType.mobile
         ? Container(
             // width: 48.w,
             width: 52.w,

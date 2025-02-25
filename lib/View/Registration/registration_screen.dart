@@ -5,12 +5,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../Res/app_url.dart';
-import '../../View_Model/Auth_view_Model/registerUser_view_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import '../../View_Model/Auth_view_Model/sendOtp_view_model.dart';
-import '../OtpVerify/otpVerifyScreen.dart';
 
 class SkillmoraRegistration extends StatefulWidget {
   const SkillmoraRegistration({Key? key}) : super(key: key);
@@ -56,24 +53,36 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
     });
   }
 
-  Future<bool> _handleStoragePermission() async {
-    PermissionStatus status = await Permission.storage.status;
-
-    if (status.isGranted) {
+Future<bool> _handleStoragePermission() async {
+  // For Android 13+ (API level 33+), use photos and videos permission
+  if (Platform.isAndroid) {
+    if (await Permission.photos.status.isGranted &&
+        await Permission.videos.status.isGranted ) {
       return true;
     }
-
-    if (status.isPermanentlyDenied) {
-      // Opens app settings if permission is permanently denied
-      await openAppSettings();
-      return false;
+    
+    // Request both permissions
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.photos,
+      Permission.videos,
+    ].request();
+    
+    return statuses[Permission.photos]!.isGranted && 
+           statuses[Permission.videos]!.isGranted;
+  } 
+  // For older Android versions
+  else {
+    if (await Permission.storage.status.isGranted) {
+      return true;
     }
-
-    status = await Permission.storage.request();
+    
+    PermissionStatus status = await Permission.storage.request();
     return status.isGranted;
   }
+}
 
-  // New function to upload PDF to server
+
+ 
   Future<void> _uploadPdfToServer(File pdfFile) async {
     try {
       var uri = Uri.parse(AppUrl.uploadResumeUrl);
@@ -83,10 +92,11 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
       var length = await pdfFile.length();
 
       var multipartFile = http.MultipartFile(
-          'media', // form field name
-          pdfStream,
-          length,
-          filename: pdfFile.path.split('/').last);
+        'media', // form field name
+        pdfStream,
+        length,
+        filename: pdfFile.path.split('/').last,
+      );
 
       request.files.add(multipartFile);
 
@@ -134,7 +144,8 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
             return AlertDialog(
               title: Text('Permission Required'),
               content: Text(
-                  'Storage permission is required to pick files. Would you like to grant permission?'),
+                'Storage permission is required to pick files. Would you like to grant permission?',
+              ),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -204,30 +215,31 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.arrow_back_rounded,
-                          color: Colors.black87)),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back_rounded,
+                      color: Colors.black87,
+                    ),
+                  ),
                   SizedBox(height: 2.h),
                   Container(
                     width: 70.w,
                     child: Text(
                       'Create your Skillmora profile',
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF1F2937),
-                              ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1F2937),
+                      ),
                     ),
                   ),
                   SizedBox(height: 2.h),
                   Text(
                     'Search & apply to jobs from India\'s No.1 Job Site',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                   ),
                   SizedBox(height: 32),
 
@@ -261,7 +273,8 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
                     },
                   ),
                   _buildHelperText(
-                      'We\'ll send relevant jobs and updates to this email'),
+                    'We\'ll send relevant jobs and updates to this email',
+                  ),
                   SizedBox(height: 24),
 
                   // Password
@@ -289,16 +302,15 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 15,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Text(
-                          '+91',
-                          style: TextStyle(fontSize: 16),
-                        ),
+                        child: Text('+91', style: TextStyle(fontSize: 16)),
                       ),
                       SizedBox(width: 8),
                       Expanded(
@@ -322,7 +334,8 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
                     ],
                   ),
                   _buildHelperText(
-                      'Recruiters will contact you on this number'),
+                    'Recruiters will contact you on this number',
+                  ),
                   SizedBox(height: 24),
 
                   // Work Status
@@ -423,10 +436,7 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
                         padding: EdgeInsets.only(top: 8),
                         child: Text(
                           'Resume is required for experienced candidates',
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: Colors.red, fontSize: 12),
                         ),
                       ),
                     SizedBox(height: 24),
@@ -451,60 +461,25 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed:
-
-                          // () {
-                          //   Map data = {
-                          //     'email': emailStr.text,
-                          //   };
-                          //   sendOtpViewModel.sendOtpApi(data, context);
-
-                          //   // Navigator.push(
-                          //   //     context,
-                          //   //     MaterialPageRoute(
-                          //   //         builder: (context) => OtpVerificationScreen()));
-                          // }
-// _isFormValid
-//                             ? () {
-//                                 if (_formKey.currentState!.validate()) {
-//                                   print(
-//                                       'Form is valid, proceeding with registration');
-//                                   Map data = {
-//                                     'name': nameStr.text,
-//                                     'email': emailStr.text,
-//                                     'password': passwordStr.text,
-//                                     'mobile': mobileStr.text,
-//                                     'workStatus':
-//                                         _selectedWorkStatus.toString(),
-//                                     'currentCity': cityStr.text,
-//                                     'resumeFile': _uploadedFileUrl.toString(),
-//                                   };
-//                                   sendOtpViewModel.sendOtpApi(data, context);
-
-//                                   // registerViewModel.registerUserApi(
-//                                   //     data, context);
-//                                 }
-//                               }
-//                             : null;
                           _isFormValid
                               ? () {
-                                  if (_formKey.currentState!.validate()) {
-                                    print(
-                                        'Form is valid, proceeding with registration');
-                                    Map data = {
-                                      'name': nameStr.text,
-                                      'email': emailStr.text,
-                                      'password': passwordStr.text,
-                                      'mobile': mobileStr.text,
-                                      'workStatus':
-                                          _selectedWorkStatus.toString(),
-                                      'currentCity': cityStr.text,
-                                      'resumeFile': _uploadedFileUrl.toString(),
-                                    };
-                                    sendOtpViewModel.sendOtpApi(data, context);
-                                    // registerViewModel.registerUserApi(
-                                    //     data, context);
-                                  }
+                                if (_formKey.currentState!.validate()) {
+                                  print(
+                                    'Form is valid, proceeding with registration',
+                                  );
+                                  Map data = {
+                                    'name': nameStr.text,
+                                    'email': emailStr.text,
+                                    'password': passwordStr.text,
+                                    'mobile': mobileStr.text,
+                                    'workStatus':
+                                        _selectedWorkStatus.toString(),
+                                    'currentCity': cityStr.text,
+                                    'resumeFile': _uploadedFileUrl.toString(),
+                                  };
+                                  sendOtpViewModel.sendOtpApi(data, context);
                                 }
+                              }
                               : null,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.black,
@@ -554,10 +529,7 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
       validator: validator,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(
-          color: Colors.grey[500],
-          fontSize: 16,
-        ),
+        hintStyle: TextStyle(color: Colors.grey[500], fontSize: 16),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
@@ -568,10 +540,7 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Colors.black),
         ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 12,
-        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         errorStyle: TextStyle(color: Colors.red),
       ),
     );
@@ -582,10 +551,7 @@ class _SkillmoraRegistrationState extends State<SkillmoraRegistration> {
       padding: EdgeInsets.only(top: 8),
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: 14,
-          color: Colors.grey[600],
-        ),
+        style: TextStyle(fontSize: 14, color: Colors.grey[600]),
       ),
     );
   }

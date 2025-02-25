@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "skillmoraapp" "\0"
+            VALUE "FileDescription", "skillmoraskh_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "skillmoraapp" "\0"
+            VALUE "InternalName", "skillmoraskh_app" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "skillmoraapp.exe" "\0"
-            VALUE "ProductName", "skillmoraapp" "\0"
+            VALUE "OriginalFilename", "skillmoraskh_app.exe" "\0"
+            VALUE "ProductName", "skillmoraskh_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

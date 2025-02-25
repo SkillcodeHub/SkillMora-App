@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:skillmoraapp/View/Splash/splashServices.dart';
+import 'package:skillmoraskh_app/View/Splash/splashServices.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -1,4 +1,5 @@
-import 'package:skillmoraapp/Data/Response/status.dart';
+
+import 'package:skillmoraskh_app/Data/Response/status.dart';
 
 class ApiResponse<T> {
   Status? status;

@@ -8,7 +8,7 @@ class AxonIconForAppBarrWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizerUtil.deviceType == DeviceType.mobile
+    return Device.screenType == ScreenType.mobile
         ? Container(
             margin: EdgeInsets.only(top: 5),
             height: 6.h,

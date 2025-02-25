@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'View/Login/loginScreen.dart';
 import 'View/Splash/splashServices.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -49,7 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         'Your search for\nthe next dream\njob is over 🚀',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 28.sp,
+                          fontSize: 26.sp,
                           fontWeight: FontWeight.w500,
                           height: 1.2,
                         ),

@@ -46,7 +46,7 @@ class ErrorScreenWidget extends StatelessWidget {
                       child: Text(
                         loadingText,
                         style: TextStyle(
-                          fontSize: SizerUtil.deviceType == DeviceType.mobile
+                          fontSize: Device.screenType == ScreenType.mobile
                               ? 14.sp
                               : 12.sp,
                           fontWeight: FontWeight.w500,

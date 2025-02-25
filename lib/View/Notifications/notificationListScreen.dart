@@ -52,6 +52,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
     await notificationListViewmodel.fetchNotificationListApi(
         ipAddress.toString(), token.toString());
   }
+
+
+
+
   List<dynamic> sortNotificationsByDate(List<Notifications>? notifications) {
     notifications!.sort((a, b) {
       DateTime dateA = DateTime.parse(a.createdAt.toString());
@@ -152,11 +156,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       ),
                                     ],
                                   ),
-                                  Icon(
-                                    Icons.pause,
-                                    color: Colors.white,
-                                    size: 24,
-                                  ),
+                                  // Icon(
+                                  //   Icons.pause,
+                                  //   color: Colors.white,
+                                  //   size: 24,
+                                  // ),
                                 ],
                               ),
                             ),
@@ -326,9 +330,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 notification.message ?? '',
                                 style: TextStyle(
                                   color: Color(0xFFCCFF00),
-                                  fontSize: 11.sp,
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
+                                maxLines: 2,
                               ),
                             ),
                             Text(
@@ -345,7 +350,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           notification.type ?? '',
                           style: TextStyle(
                             color: Colors.white.withOpacity(0.7),
-                            fontSize: 10.sp,
+                            fontSize: 13.sp,
                           ),
                         ),
                       ],

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:skillmoraapp/View_Model/Auth_view_Model/registerUser_view_model.dart';
+import 'package:skillmoraskh_app/View_Model/Auth_view_Model/registerUser_view_model.dart';
 import '../../Repository/Auth_Repository/verifyOtp_repository.dart';
 import '../../Res/colors.dart';
 import '../../Utils/date_utils.dart';

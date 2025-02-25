@@ -11,10 +11,9 @@ class AppUrl {
   // static var baseUrl = "http://192.168.1.5:7000/api/cms/";
   // static var baseUrl1 = "http://192.168.1.5:8000/api/axonWeb/";
 
-
   static var baseUrl = "https://api.skillmora.com";
 
-  // static var baseUrl = "https://4250-2402-3a80-1ea9-7086-7d24-197d-14ce-9a4b.ngrok-free.app";
+  // static var baseUrl = "https://4c11-2402-a00-152-d6b7-87d2-dde3-ccbe-f382.ngrok-free.app";
 
   // login Url
   static var loginUrl = baseUrl + '/user/userlogin?clientId=1&ipAddress=null';
@@ -48,14 +47,47 @@ class AppUrl {
   static var applyjobsUrl = baseUrl + '/user/applyjob';
 
   // company detail by Id Url
-  static var companydetailbyIdUrl = baseUrl + '/company/companydetailbycompanyid';
+  static var companydetailbyIdUrl =
+      baseUrl + '/company/companydetailbycompanyid';
   // notification List Url
   static var notificationListUrl = baseUrl + '/user/getusernotifications';
-  
+
   // add company reviews Url
   static var addcompanyreviewsUrl = baseUrl + '/company/addcompanyreviews';
 
+  // edit user profile Url
+  static var edituserprofileUrl = baseUrl + '/user/edituserprofile';
 
+  //user profile Url
+  static var userprofileUrl = baseUrl + '/user/user';
 
-  
+  //edit user about info Url
+  static var edituseraboutinfoUrl = baseUrl + '/user/edituseraboutinfo';
+
+  //edit user about info Url
+  static var editOtherDetailsUrl = baseUrl + '/user/edituserotherdetails';
+
+  //edit user about info Url
+  static var getSkillListUrl = baseUrl + '/admin1/keyskills';
+
+  //update user key skill Url
+  static var updateuserkeyskillUrl = baseUrl + '/user/updateuserkeyskill';
+
+  //add Work Experience Url
+  static var addWorkExperienceUrl = baseUrl + '/user/adduseremployment';
+
+  //edit Work Experience Url
+  static var editWorkExperienceUrl = baseUrl + '/user/edituseremployment';
+
+  //add Project Details Url
+  static var addProjectDetailsUrl = baseUrl + '/user/adduserproject';
+
+  //edit Project Details Url
+  static var editProjectDetailsUrl = baseUrl + '/user/edituserproject';
+
+  //industry type Url
+  static var industrytypeListUrl = baseUrl + '/admin1/industrytype';
+
+  //department type List Url
+  static var departmenttypeListUrl = baseUrl + '/admin1/departmenttype';
 }

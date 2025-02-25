@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skillmoraapp/Utils/Widgets/spining_lines.dart';
+import 'package:skillmoraskh_app/Utils/Widgets/spining_lines.dart';
 
 import '../../Res/colors.dart';
 

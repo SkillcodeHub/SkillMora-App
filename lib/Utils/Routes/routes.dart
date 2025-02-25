@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skillmoraapp/Utils/Routes/routes_name.dart';
+import 'package:skillmoraskh_app/Utils/Routes/routes_name.dart';
 
 import '../../View/Jobs/JobsScreen.dart';
 import '../../View/Jobs/applyJobScreen.dart';
@@ -9,7 +9,6 @@ import '../../View/NavigationBar/navigationBar.dart';
 import '../../View/OtpVerify/otpVerifyScreen.dart';
 import '../../View/Registration/registration_screen.dart';
 import '../../View/Review/reviewScreen.dart';
-import '../../View/Splash/splashScreen.dart';
 import '../../onBoardingScreen.dart';
 
 class Routes {

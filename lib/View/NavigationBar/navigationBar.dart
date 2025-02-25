@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:skillmoraskh_app/View/Jobs/appliedJobsListScreen.dart';
+import 'package:skillmoraskh_app/View/Profile/demo.dart';
 import '../../SharedPreferences/sharePreference.dart';
 import '../Jobs/JobsScreen.dart';
-import '../Jobs/appliedJobsListScreen.dart';
 import '../Notifications/notificationListScreen.dart';
 import '../Profile/profileScreen.dart';
-import '../Review/reviewScreen.dart';
 
 class MyNavigationBar extends StatefulWidget {
   final int indexNumber;
@@ -77,7 +77,8 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
 
           final List<Widget> user = [
             JobsScreen(),
-            AddReviewScreen(data: null),
+            AppliedJobsListScreen(),
+            // DemoScreen(),
             NotificationScreen(),
             ProfileScreen(),
           ];
